@@ -1,0 +1,44 @@
+name: Coverage Report
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  coverage:
+    name: Generate Coverage Report
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Restore node modules from cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/yarn
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-yarn-
+
+      - name: Install Dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Get Coverage for badge
+        run: |
+          SUMMARY="$(yarn jest --coverage --coverageReporters='text-summary')"
+          PERCENT="$(echo $SUMMARY | grep -o -P '(?<=Lines : ).*(?= \()')"
+          echo "COVERAGE=$(echo $PERCENT)" >> $GITHUB_ENV
+
+      - name: Create the Badge
+        uses: schneegans/dynamic-badges-action@v1.0.0
+        with:
+          auth: ${{ secrets.GIST_SECRET }}
+          gistID: 001a117389a48090e57b250eb58c534f
+          filename: expanse-mui-datatables-main.json
+          label: Test Coverage
+          message: ${{ env.COVERAGE }}
+          color: green
+          namedLogo: jest

@@ -1,0 +1,99 @@
+{
+  "root": true,
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "detect"
+    }
+  },
+  "plugins": ["@typescript-eslint/eslint-plugin"],
+  "extends": [
+    "eslint:all",
+    "plugin:react/all",
+    "plugin:react/jsx-runtime",
+    "plugin:react-hooks/recommended",
+    "plugin:@typescript-eslint/all",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 2018,
+    "project": "tsconfig.json"
+  },
+  "rules": {
+    "one-var": 0,
+    "sort-keys": 0,
+    "sort-imports": 0,
+    "no-process-env": 0,
+    "max-params": 0,
+    "no-console": 0,
+    "camelcase": 0,
+    "no-ternary": 0,
+    "func-style": 0,
+    "id-length": 0,
+    "max-lines-per-function": 0,
+    "no-negated-condition": 0,
+    "prefer-destructuring": 0,
+    "max-statements": 0,
+    "max-lines": 0,
+    "no-void": 0,
+    "prefer-named-capture-group": 0,
+    "no-undefined": 0,
+    "max-statements-per-line": 0,
+    "no-prototype-builtins": 0,
+    "no-underscore-dangle": 0,
+
+    "@typescript-eslint/no-unsafe-assignment": 0,
+    "@typescript-eslint/no-unsafe-argument": 0,
+    "@typescript-eslint/no-unsafe-member-access": 0,
+    "@typescript-eslint/prefer-readonly-parameter-types": 0,
+    "@typescript-eslint/no-magic-numbers": 0,
+    "@typescript-eslint/naming-convention": 0,
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "@typescript-eslint/no-unnecessary-condition": 0,
+    "@typescript-eslint/strict-boolean-expressions": 0,
+    "@typescript-eslint/consistent-type-definitions": 0,
+    "@typescript-eslint/no-type-alias": 0,
+    "@typescript-eslint/no-dynamic-delete": 0,
+    "@typescript-eslint/consistent-type-imports": 0,
+    "@typescript-eslint/no-floating-promises": 0,
+    "@typescript-eslint/ban-ts-comment": 0,
+    "@typescript-eslint/no-confusing-void-expression": 0,
+
+    "react/prop-types": 0,
+    "react/display-name": 0,
+    "react/jsx-filename-extension": [2, { "extensions": [".tsx", ".jsx"] }],
+    "react/function-component-definition": 0,
+    "react/forbid-component-props": 0,
+    "react/no-multi-comp": 0,
+    "react/no-unstable-nested-components": 0,
+    "react/destructuring-assignment": 0,
+    "react/no-array-index-key": 0,
+    "react/require-default-props": 0,
+
+    "react/jsx-props-no-spreading": 0,
+    "react/jsx-no-literals": 0,
+    "react/jsx-sort-props": 0,
+    "react/jsx-no-bind": 0,
+    "react/jsx-max-depth": 0,
+
+    "no-restricted-imports": [
+      "error",
+      {
+        "name": "clients/db",
+        "message": "Please use withDatabase instead."
+      },
+      {
+        "name": "middlewares/withErrorHandle",
+        "message": "Please wrap request in requestRouter instead"
+      }
+    ]
+  },
+  "ignorePatterns": [".eslintrc.js", "examples"]
+}

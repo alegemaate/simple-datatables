@@ -1,0 +1,5 @@
+# Simple Datatables
+
+## License
+
+MIT
