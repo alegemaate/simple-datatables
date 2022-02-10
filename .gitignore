@@ -48,8 +48,7 @@ node_modules
 .eslintcache
 
 # Build Data
-dist/*
-!dist/index.d.ts
+dist/
 es/*
 lib/*
 
