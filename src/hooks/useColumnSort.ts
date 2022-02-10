@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { DataKeys } from 'types/DataKeys';
-import { getComparator, Order, stableSort } from '../utils/sort';
+import * as React from "react";
+import { DataKeys } from "types/DataKeys";
+import { getComparator, Order, stableSort } from "../utils/sort";
 
 export interface UseColumnSortProps<TData> {
   data: TData[];
@@ -9,15 +9,15 @@ export interface UseColumnSortProps<TData> {
 }
 
 export const useColumnSort = <TData>({ page, data, rowsPerPage }: UseColumnSortProps<TData>) => {
-  const [order, setOrder] = React.useState<Order>('asc');
+  const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] = React.useState<DataKeys<TData> | null>();
 
   const handleRequestSort = (
     _event: React.MouseEvent<unknown>,
     property: keyof { [key in DataKeys<TData>]: number | string },
   ) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
+    const isAsc = orderBy === property && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
 

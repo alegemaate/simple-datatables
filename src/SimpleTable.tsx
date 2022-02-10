@@ -1,22 +1,22 @@
-import * as React from 'react';
+import * as React from "react";
 
-import Box from '@mui/material/Box';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableRow from '@mui/material/TableRow';
+import Box from "@mui/material/Box";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableRow from "@mui/material/TableRow";
 
-import Paper from '@mui/material/Paper';
+import Paper from "@mui/material/Paper";
 
-import { SimpleTableToolbar } from './components/SimpleTableToolbar';
-import { SimpleTableHeader } from './components/SimpleTableHeader';
-import { usePagination } from './hooks/usePagination';
-import { SimpleTableFooter } from './components/SimpleTableFooter';
-import { useColumnSort } from './hooks/useColumnSort';
-import { SimpleTableRow } from './components/SimpleTableRow';
-import { useDataId } from './hooks/useDataId';
-import { SimpleTableColumn } from 'types/Column';
+import { SimpleTableToolbar } from "./components/SimpleTableToolbar";
+import { SimpleTableHeader } from "./components/SimpleTableHeader";
+import { usePagination } from "./hooks/usePagination";
+import { SimpleTableFooter } from "./components/SimpleTableFooter";
+import { useColumnSort } from "./hooks/useColumnSort";
+import { SimpleTableRow } from "./components/SimpleTableRow";
+import { useDataId } from "./hooks/useDataId";
+import { SimpleTableColumn } from "types/Column";
 
 interface SimpleTableProps<TData> {
   title?: string | null;
@@ -78,11 +78,11 @@ function SimpleTable<TData>({ title, options, data, columns }: React.PropsWithCh
   const emptyRows = rowsPerPage - sortedData.length;
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Paper sx={{ width: '100%', mb: 2 }}>
+    <Box sx={{ width: "100%" }}>
+      <Paper sx={{ width: "100%", mb: 2 }}>
         <SimpleTableToolbar numSelected={selected.length} title={title} />
         <TableContainer>
-          <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size={options?.dense ? 'small' : 'medium'}>
+          <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size={options?.dense ? "small" : "medium"}>
             <SimpleTableHeader
               numSelected={selected.length}
               order={order}
@@ -112,7 +112,8 @@ function SimpleTable<TData>({ title, options, data, columns }: React.PropsWithCh
                 <TableRow
                   style={{
                     height: (options?.dense ? 33 : 53) * emptyRows,
-                  }}>
+                  }}
+                >
                   <TableCell colSpan={6} />
                 </TableRow>
               )}

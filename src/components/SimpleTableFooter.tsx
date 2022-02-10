@@ -1,8 +1,8 @@
-import * as React from 'react';
-import TableFooter from '@mui/material/TableFooter';
-import TableRow from '@mui/material/TableRow';
-import { SimpleTablePagination } from './SimpleTablePagination';
-import { UsePaginationProps } from 'hooks/usePagination';
+import * as React from "react";
+import TableFooter from "@mui/material/TableFooter";
+import TableRow from "@mui/material/TableRow";
+import { SimpleTablePagination } from "./SimpleTablePagination";
+import { UsePaginationProps } from "hooks/usePagination";
 
 interface SimpleTableFooterProps extends UsePaginationProps {
   numRows: number;

@@ -64,3 +64,6 @@ lib/*
 .yarn-integrity
 
 *.tgz
+
+.swc/
+build/

@@ -1,0 +1,16 @@
+{
+  "jsc": {
+    "parser": {
+      "syntax": "typescript",
+      "tsx": true
+    },
+    "target": "es2017"
+  },
+  "env": {
+    "targets": "> 0.25%, not dead",
+    "coreJs": 3
+  },
+  "module": {
+    "type": "commonjs"
+  }
+}

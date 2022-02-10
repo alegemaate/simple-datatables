@@ -1,52 +1,42 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const webpack = require('webpack');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require("path");
 
 module.exports = {
-  entry: {
-    app: ['core-js/stable', 'regenerator-runtime/runtime', './examples/router/index.js'],
-  },
-  stats: 'verbose',
+  entry: "./examples/router/index.tsx",
+  mode: "development",
   context: __dirname,
   output: {
-    filename: 'bundle.js',
+    filename: "bundle.js",
   },
-  devtool: 'source-map',
+  devtool: "inline-source-map",
   devServer: {
-    disableHostCheck: true,
-    host: 'localhost',
-    hot: true,
-    inline: true,
     port: 5050,
-    stats: 'errors-warnings',
+    historyApiFallback: true,
   },
   module: {
     rules: [
       {
-        test: /\.(jsx|js)?$/,
+        test: /\.m?js$/,
         exclude: /node_modules/,
-        use: ['babel-loader', 'eslint-loader'],
+        use: {
+          loader: "swc-loader",
+        },
       },
       {
-        test: /\.(tsx|ts)?$/,
-        use: 'ts-loader',
+        test: /\.ts(x?)$/,
         exclude: /node_modules/,
-      },
-      {
-        test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        use: {
+          loader: "swc-loader",
+        },
       },
     ],
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: [".tsx", ".ts", ".js"],
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('development'),
-      },
+    new HtmlWebpackPlugin({
+      template: "./examples/index.html",
     }),
   ],
 };

@@ -1,4 +1,4 @@
-import { DataKeys } from './DataKeys';
+import { DataKeys } from "./DataKeys";
 
 export interface SimpleTableColumn<TData> {
   name: DataKeys<TData>;

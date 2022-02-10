@@ -1,10 +1,10 @@
-import * as React from 'react';
+import * as React from "react";
 
-import TableCell from '@mui/material/TableCell';
-import TableRow from '@mui/material/TableRow';
-import Checkbox from '@mui/material/Checkbox';
-import { RowId } from '../types/RowId';
-import { SimpleTableColumn } from 'types/Column';
+import TableCell from "@mui/material/TableCell";
+import TableRow from "@mui/material/TableRow";
+import Checkbox from "@mui/material/Checkbox";
+import { RowId } from "../types/RowId";
+import { SimpleTableColumn } from "types/Column";
 
 interface SimpleTableRowProps<TData extends RowId> {
   onClick: (id: number) => void;
@@ -28,13 +28,14 @@ export const SimpleTableRow = <TData extends RowId>({
     aria-checked={selected}
     tabIndex={-1}
     key={row.__simple_id}
-    selected={selected}>
+    selected={selected}
+  >
     <TableCell padding="checkbox">
       <Checkbox
         color="primary"
         checked={selected}
         inputProps={{
-          'aria-labelledby': labelId,
+          "aria-labelledby": labelId,
         }}
       />
     </TableCell>

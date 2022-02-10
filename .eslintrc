@@ -81,19 +81,7 @@
     "react/jsx-no-literals": 0,
     "react/jsx-sort-props": 0,
     "react/jsx-no-bind": 0,
-    "react/jsx-max-depth": 0,
-
-    "no-restricted-imports": [
-      "error",
-      {
-        "name": "clients/db",
-        "message": "Please use withDatabase instead."
-      },
-      {
-        "name": "middlewares/withErrorHandle",
-        "message": "Please wrap request in requestRouter instead"
-      }
-    ]
+    "react/jsx-max-depth": 0
   },
-  "ignorePatterns": [".eslintrc.js", "examples"]
+  "ignorePatterns": [".eslintrc.js", "examples", "webpack.config.js"]
 }
