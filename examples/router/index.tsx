@@ -1,6 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Routes, useLocation, Link } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  useLocation,
+  Link,
+} from "react-router-dom";
 import { createTheme, ThemeProvider, Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { StyledEngineProvider } from "@mui/material/styles";
@@ -34,7 +40,11 @@ export const Examples = () => {
               <Route path="/" element={<ExamplesGrid />} />
 
               {Object.keys(EXAMPLES).map((label, index) => (
-                <Route key={index} path={label.replace(/\s+/g, "-").toLowerCase()} element={EXAMPLES[label]} />
+                <Route
+                  key={index}
+                  path={label.replace(/\s+/g, "-").toLowerCase()}
+                  element={EXAMPLES[label]}
+                />
               ))}
             </Routes>
 

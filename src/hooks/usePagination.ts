@@ -4,7 +4,9 @@ export interface UsePaginationProps {
   rowsPerPage: number;
   page: number;
   handleChangePage: (_event: unknown, newPage: number) => void;
-  handleChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handleChangeRowsPerPage: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => void;
 }
 
 export const usePagination = (defaultRowsPerPage = 5): UsePaginationProps => {
@@ -15,7 +17,9 @@ export const usePagination = (defaultRowsPerPage = 5): UsePaginationProps => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };

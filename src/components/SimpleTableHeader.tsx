@@ -14,7 +14,10 @@ import { RowId } from "types/RowId";
 
 interface SimpleTableHeaderProps<TData> {
   numSelected: number;
-  onRequestSort: (event: React.MouseEvent<unknown>, property: DataKeys<TData>) => void;
+  onRequestSort: (
+    event: React.MouseEvent<unknown>,
+    property: DataKeys<TData>,
+  ) => void;
   onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
   order: Order;
   orderBy?: DataKeys<RowId & TData> | null;
@@ -31,9 +34,10 @@ export function SimpleTableHeader<TData>({
   onRequestSort,
   columns,
 }: React.PropsWithChildren<SimpleTableHeaderProps<TData>>) {
-  const createSortHandler = (property: DataKeys<TData>) => (event: React.MouseEvent<unknown>) => {
-    onRequestSort(event, property);
-  };
+  const createSortHandler =
+    (property: DataKeys<TData>) => (event: React.MouseEvent<unknown>) => {
+      onRequestSort(event, property);
+    };
 
   return (
     <TableHead>

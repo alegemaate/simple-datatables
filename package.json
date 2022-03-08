@@ -14,7 +14,8 @@
     "lint": "eslint src",
     "build": "cross-env NODE_ENV=production yarn prettier && swc ./src -d ./dist && tsc",
     "build:examples": "cross-env NODE_ENV=production yarn webpack",
-    "serve": "serve ./build"
+    "serve": "serve ./build",
+    "format": "prettier --write src examples"
   },
   "repository": {
     "type": "git",
