@@ -9,11 +9,11 @@
     "dist"
   ],
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --progress --color --open",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --config ./webpack.dev.js",
     "prettier": "prettier --write src",
     "lint": "eslint src",
     "build": "cross-env NODE_ENV=production yarn prettier && swc ./src -d ./dist && tsc",
-    "build:examples": "cross-env NODE_ENV=production yarn webpack",
+    "build:examples": "cross-env NODE_ENV=production yarn webpack --config ./webpack.build.js",
     "serve": "serve ./build",
     "format": "prettier --write src examples"
   },
@@ -63,7 +63,8 @@
     "typescript": "^4.4.4",
     "webpack": "^5.68.0",
     "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.7.4"
+    "webpack-dev-server": "^4.7.4",
+    "webpack-merge": "^5.8.0"
   },
   "peerDependencies": {
     "@mui/icons-material": "^5.0.3",

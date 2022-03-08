@@ -1,21 +1,13 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
-const webpack = require("webpack");
 
 module.exports = {
-  mode: "none",
   entry: "./examples/router/index.tsx",
   context: __dirname,
   output: {
     filename: "bundle.js",
     path: path.join(__dirname, "build"),
     clean: true,
-  },
-  devtool: "inline-source-map",
-  devServer: {
-    port: 5050,
-    historyApiFallback: true,
-    static: "./build",
   },
   module: {
     rules: [
@@ -38,9 +30,6 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./examples/index.html",
-    }),
-    new webpack.DefinePlugin({
-      "process.env.NODE_ENV": JSON.stringify("development"),
     }),
   ],
   resolve: {

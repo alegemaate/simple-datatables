@@ -65,7 +65,7 @@ export const Examples = () => {
 };
 
 const App = () => (
-  <BrowserRouter>
+  <BrowserRouter basename={process.env.BASE_PATH}>
     <Examples />
   </BrowserRouter>
 );

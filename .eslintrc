@@ -83,5 +83,5 @@
     "react/jsx-no-bind": 0,
     "react/jsx-max-depth": 0
   },
-  "ignorePatterns": [".eslintrc.js", "examples", "webpack.config.js"]
+  "ignorePatterns": [".eslintrc.js", "examples", "webpack.*.js"]
 }
