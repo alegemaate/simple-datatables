@@ -17,6 +17,7 @@ import { useColumnSort } from "./hooks/useColumnSort";
 import { SimpleTableRow } from "./components/SimpleTableRow";
 import { useDataId } from "./hooks/useDataId";
 import { SimpleTableColumn } from "types/Column";
+import { downloadCSV } from "utils/download-csv";
 
 interface SimpleTableProps<TData> {
   title?: string | null;
@@ -73,6 +74,10 @@ function SimpleTable<TData>({ title, options, data, columns }: React.PropsWithCh
     setSelected(newSelected);
   };
 
+  const handleDownload = () => {
+    downloadCSV(sortedData, columns);
+  };
+
   const isSelected = (id: number) => selected.includes(id);
 
   const emptyRows = rowsPerPage - sortedData.length;
@@ -80,7 +85,7 @@ function SimpleTable<TData>({ title, options, data, columns }: React.PropsWithCh
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <SimpleTableToolbar numSelected={selected.length} title={title} />
+        <SimpleTableToolbar numSelected={selected.length} title={title} onDownload={handleDownload} />
         <TableContainer>
           <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size={options?.dense ? "small" : "medium"}>
             <SimpleTableHeader
