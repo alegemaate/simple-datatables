@@ -1,4 +1,3 @@
-const webpack = require("webpack");
 const { merge } = require("webpack-merge");
 const common = require("./webpack.common.js");
 
@@ -10,9 +9,4 @@ module.exports = merge(common, {
     historyApiFallback: true,
     static: "./build",
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      "process.env.BASE_PATH": "",
-    }),
-  ],
 });
