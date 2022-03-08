@@ -8,7 +8,11 @@ export interface UseColumnSortProps<TData> {
   rowsPerPage: number;
 }
 
-export const useColumnSort = <TData>({ page, data, rowsPerPage }: UseColumnSortProps<TData>) => {
+export const useColumnSort = <TData>({
+  page,
+  data,
+  rowsPerPage,
+}: UseColumnSortProps<TData>) => {
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] = React.useState<DataKeys<TData> | null>();
 
@@ -28,7 +32,10 @@ export const useColumnSort = <TData>({ page, data, rowsPerPage }: UseColumnSortP
     console.log(startIndex, endIndex);
 
     if (orderBy) {
-      return stableSort(data, getComparator(order, orderBy)).slice(startIndex, endIndex);
+      return stableSort(data, getComparator(order, orderBy)).slice(
+        startIndex,
+        endIndex,
+      );
     }
     return data.slice(startIndex, endIndex);
   }, [data, order, orderBy, page, rowsPerPage]);

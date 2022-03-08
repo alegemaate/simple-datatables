@@ -58,16 +58,27 @@ export const ExamplesGrid: React.FC = () => {
       </Typography>
 
       <Typography variant="subtitle2" align="center" style={{ margin: "10px" }}>
-        <TextField placeholder="Search Examples" value={searchVal} onChange={(e) => setSearchVal(e.target.value)} />
+        <TextField
+          placeholder="Search Examples"
+          value={searchVal}
+          onChange={(e) => setSearchVal(e.target.value)}
+        />
       </Typography>
 
       <Grid container className={classes.container} spacing={1}>
         {examplesSortedKeys.map((label, index) => (
           <Grid key={index} item md={2}>
-            <Link className={classes.link} to={label.replace(/\s+/g, "-").toLowerCase()}>
+            <Link
+              className={classes.link}
+              to={label.replace(/\s+/g, "-").toLowerCase()}
+            >
               <Card className={classes.card}>
                 <CardContent className={classes.cardContent}>
-                  <Typography variant="subtitle1" className={classes.label} align="center">
+                  <Typography
+                    variant="subtitle1"
+                    className={classes.label}
+                    align="center"
+                  >
                     {label}
                   </Typography>
                 </CardContent>
