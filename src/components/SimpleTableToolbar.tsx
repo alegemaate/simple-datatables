@@ -31,7 +31,7 @@ export const SimpleTableToolbar: React.FC<SimpleTableToolbarProps> = ({ numSelec
         {title ?? ""}
       </Typography>
     )}
-    {/* {numSelected > 0 ? (
+    {numSelected > 0 ? (
       <Tooltip title="Delete">
         <IconButton>
           <DeleteIcon />
@@ -43,6 +43,6 @@ export const SimpleTableToolbar: React.FC<SimpleTableToolbarProps> = ({ numSelec
           <FilterListIcon />
         </IconButton>
       </Tooltip>
-    )} */}
+    )}
   </Toolbar>
 );
