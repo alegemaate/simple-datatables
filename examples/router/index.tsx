@@ -65,7 +65,11 @@ export const Examples = () => {
 };
 
 const App = () => (
-  <BrowserRouter>
+  <BrowserRouter
+    basename={
+      process.env.NODE_ENV === "development" ? "/" : "/simple-datatables/"
+    }
+  >
     <Examples />
   </BrowserRouter>
 );
