@@ -17,6 +17,7 @@ import { useColumnSort } from "./hooks/useColumnSort";
 import { SimpleTableRow } from "./components/SimpleTableRow";
 import { useDataId } from "./hooks/useDataId";
 import { SimpleTableColumn } from "types/Column";
+import { downloadCsv } from "utils/download-csv";
 
 interface SimpleTableProps<TData> {
   title?: string | null;
@@ -29,10 +30,16 @@ interface SimpleTableProps<TData> {
   };
 }
 
-function SimpleTable<TData>({ title, options, data, columns }: React.PropsWithChildren<SimpleTableProps<TData>>) {
+function SimpleTable<TData>({
+  title,
+  options,
+  data,
+  columns,
+}: React.PropsWithChildren<SimpleTableProps<TData>>) {
   const [selected, setSelected] = React.useState<readonly number[]>([]);
 
-  const { handleChangePage, handleChangeRowsPerPage, page, rowsPerPage } = usePagination(options?.rowsPerPage ?? 5);
+  const { handleChangePage, handleChangeRowsPerPage, page, rowsPerPage } =
+    usePagination(options?.rowsPerPage ?? 5);
 
   const idData = useDataId(data);
 
@@ -67,10 +74,17 @@ function SimpleTable<TData>({ title, options, data, columns }: React.PropsWithCh
     } else if (selectedIndex === selected.length - 1) {
       newSelected = newSelected.concat(selected.slice(0, -1));
     } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
+      newSelected = newSelected.concat(
+        selected.slice(0, selectedIndex),
+        selected.slice(selectedIndex + 1),
+      );
     }
 
     setSelected(newSelected);
+  };
+
+  const handleDownload = () => {
+    downloadCsv(sortedData, columns);
   };
 
   const isSelected = (id: number) => selected.includes(id);
@@ -80,9 +94,17 @@ function SimpleTable<TData>({ title, options, data, columns }: React.PropsWithCh
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <SimpleTableToolbar numSelected={selected.length} title={title} />
+        <SimpleTableToolbar
+          numSelected={selected.length}
+          title={title}
+          onDownload={handleDownload}
+        />
         <TableContainer>
-          <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size={options?.dense ? "small" : "medium"}>
+          <Table
+            sx={{ minWidth: 750 }}
+            aria-labelledby="tableTitle"
+            size={options?.dense ? "small" : "medium"}
+          >
             <SimpleTableHeader
               numSelected={selected.length}
               order={order}
