@@ -8,7 +8,7 @@ export function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
     return 1;
   }
   return 0;
-}
+} 
 
 export function getComparator<T>(order: Order, orderBy: keyof T): (a: T, b: T) => number {
   return order === "desc"

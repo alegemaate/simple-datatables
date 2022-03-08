@@ -1,36 +1,53 @@
 import { SimpleTableColumn } from "types/Column";
+import { downloadString } from "./download-uri";
 
-const createURI = (content: string) =>
-  window.URL.createObjectURL(new Blob([content]));
+/**
+ * Serialize CSV cell
+ * @param content Content to serialize
+ * @returns Stringified and escaped cell content
+ */
+const serializeCell = (content: unknown) =>
+  `"${String(content).replace(/"/gu, '""')}"`;
 
-const downloadURI = (uri: string, name = "") => {
-  const link = document.createElement("a");
-  link.style.display = "none";
-  link.href = uri;
-  link.download = name;
+/**
+ * Create Header
+ * @description Creates a header row for the csv file
+ * @param columns Column definition used determine header
+ * @returns
+ */
+const createHeader = <TData>(columns: SimpleTableColumn<TData>[]) =>
+  columns.map((column) => serializeCell(column.name)).join(",");
 
-  document.body.appendChild(link);
+/**
+ * Create Body
+ * @description Create body rows for csv
+ * @param data Content to be placed in csv body
+ * @param columns Column definition used to order cells
+ * @returns
+ */
+const createBody = <TData>(
+  data: TData[],
+  columns: SimpleTableColumn<TData>[],
+) =>
+  data.map((row) =>
+    columns.map((column) => serializeCell(row[column.name])).join(","),
+  );
 
-  link.click();
-  link.remove();
-};
-
-const escapeQuotes = (str: string) => str.replace(/"/gu, '""');
-
-export const downloadCSV = <TData>(
+/**
+ * Download CSV
+ * @description Create and download a csv file from the browser
+ * @param data Content to be placed in csv body
+ * @param columns Column definition used to order cells, and build header
+ * @param fileName Name of output file
+ */
+export const downloadCsv = <TData>(
   data: TData[],
   columns: SimpleTableColumn<TData>[],
   fileName = "data.csv",
 ): void => {
-  const header = columns.map((column) => escapeQuotes(column.name)).join(",");
-
-  const csv = data.map((row) =>
-    columns
-      .map((column) => `"${escapeQuotes(String(row[column.name]))}"`)
-      .join(","),
+  const content = [createHeader(columns), ...createBody(data, columns)].join(
+    "\n",
   );
 
-  const dataUri = createURI([header, ...csv].join("\n"));
-
-  downloadURI(dataUri, fileName);
+  downloadString(content, fileName);
 };
