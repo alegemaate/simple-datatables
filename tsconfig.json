@@ -9,7 +9,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "isolatedModules": true,
-    "jsx": "react",
+    "jsx": "preserve",
     "baseUrl": "./src",
     "allowJs": true,
     "noErrorTruncation": true,

@@ -54,12 +54,10 @@ export const Examples = () => {
   );
 };
 
-function App() {
-  return (
-    <BrowserRouter>
-      <Examples />
-    </BrowserRouter>
-  );
-}
+const App = () => (
+  <BrowserRouter>
+    <Examples />
+  </BrowserRouter>
+);
 
 ReactDOM.render(<App />, document.getElementById("app-root"));
