@@ -4,6 +4,12 @@
       "syntax": "typescript",
       "tsx": true
     },
+    "transform": {
+      "react": {
+        "pragma": "React.createElement",
+        "pragmaFrag": "React.Fragment"
+      }
+    },
     "target": "es2017"
   },
   "env": {
