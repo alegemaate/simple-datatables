@@ -18,16 +18,13 @@ import { SimpleTableRow } from "./components/SimpleTableRow";
 import { useDataId } from "./hooks/useDataId";
 import { SimpleTableColumn } from "types/Column";
 import { downloadCsv } from "utils/download-csv";
+import { SimpleTableOptions } from "types/Options";
 
 interface SimpleTableProps<TData> {
   title?: string | null;
   data: TData[];
   columns: SimpleTableColumn<TData>[];
-  options?: {
-    dense?: boolean;
-    rowsPerPage?: number;
-    displayEmptyRows?: boolean;
-  };
+  options?: SimpleTableOptions;
 }
 
 function SimpleTable<TData>({
@@ -39,7 +36,7 @@ function SimpleTable<TData>({
   const [selected, setSelected] = React.useState<readonly number[]>([]);
 
   const { handleChangePage, handleChangeRowsPerPage, page, rowsPerPage } =
-    usePagination(options?.rowsPerPage ?? 5);
+    usePagination(options?.page, options?.rowsPerPage);
 
   const idData = useDataId(data);
 
@@ -64,20 +61,24 @@ function SimpleTable<TData>({
   };
 
   const handleClick = (id: number) => {
-    const selectedIndex = selected.indexOf(id);
     let newSelected: readonly number[] = [];
+    const selectedIndex = selected.indexOf(id);
+    const mode = options?.selectableRows ?? "multiple";
 
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
-      );
+    if (mode === "none") {
+      newSelected = [];
+    } else if (mode === "single") {
+      if (selectedIndex === -1) {
+        newSelected = [id];
+      } else {
+        newSelected = [];
+      }
+    } else if (mode === "multiple") {
+      if (selectedIndex === -1) {
+        newSelected = [...selected, id];
+      } else {
+        newSelected = selected.filter((elem) => elem !== id);
+      }
     }
 
     setSelected(newSelected);
@@ -98,6 +99,10 @@ function SimpleTable<TData>({
           numSelected={selected.length}
           title={title}
           onDownload={handleDownload}
+          download={options?.download ?? true}
+          filter={options?.filter ?? true}
+          search={options?.search ?? true}
+          print={options?.print ?? true}
         />
         <TableContainer>
           <Table
@@ -113,11 +118,12 @@ function SimpleTable<TData>({
               onRequestSort={handleRequestSort}
               rowCount={sortedData.length}
               columns={columns}
+              selectableRows={options?.selectableRows}
             />
             <TableBody>
               {sortedData.map((row, index) => {
                 const isItemSelected = isSelected(row.__simple_id);
-                const labelId = `clean-table-checkbox-${index}`;
+                const labelId = `simple-table-checkbox-${index}`;
 
                 return (
                   <SimpleTableRow
@@ -127,6 +133,9 @@ function SimpleTable<TData>({
                     labelId={labelId}
                     onClick={handleClick}
                     columns={columns}
+                    hover={options?.rowHover}
+                    selectableRows={options?.selectableRows}
+                    selectableRowsOnClick={options?.selectableRowsOnClick}
                   />
                 );
               })}
@@ -148,6 +157,7 @@ function SimpleTable<TData>({
           handleChangeRowsPerPage={handleChangeRowsPerPage}
           page={page}
           rowsPerPage={rowsPerPage}
+          rowsPerPageOptions={options?.rowsPerPageOptions}
         />
       </Paper>
     </Box>

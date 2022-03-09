@@ -9,8 +9,11 @@ export interface UsePaginationProps {
   ) => void;
 }
 
-export const usePagination = (defaultRowsPerPage = 5): UsePaginationProps => {
-  const [page, setPage] = React.useState(0);
+export const usePagination = (
+  defaultRowsPerPage = 5,
+  defaultPage = 0,
+): UsePaginationProps => {
+  const [page, setPage] = React.useState(defaultPage);
   const [rowsPerPage, setRowsPerPage] = React.useState(defaultRowsPerPage);
 
   const handleChangePage = (_event: unknown, newPage: number) => {

@@ -8,6 +8,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import DownloadIcon from "@mui/icons-material/FileDownload";
 import SearchIcon from "@mui/icons-material/Search";
+import PrintIcon from "@mui/icons-material/Print";
 import Box from "@mui/material/Box";
 import makeStyles from "@mui/styles/makeStyles";
 
@@ -23,12 +24,20 @@ interface SimpleTableToolbarProps {
   numSelected: number;
   title?: string | null;
   onDownload: () => void;
+  download: boolean;
+  search: boolean;
+  filter: boolean;
+  print: boolean;
 }
 
 export const SimpleTableToolbar: React.FC<SimpleTableToolbarProps> = ({
   numSelected,
   title,
   onDownload,
+  download,
+  filter,
+  search,
+  print,
 }) => {
   const classes = useStyles();
 
@@ -73,21 +82,34 @@ export const SimpleTableToolbar: React.FC<SimpleTableToolbarProps> = ({
         </Tooltip>
       ) : (
         <Box className={classes.tools}>
-          <Tooltip title="Search">
-            <IconButton>
-              <SearchIcon />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Download CSV">
-            <IconButton onClick={onDownload}>
-              <DownloadIcon />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Filter list">
-            <IconButton>
-              <FilterListIcon />
-            </IconButton>
-          </Tooltip>
+          {search && (
+            <Tooltip title="Search">
+              <IconButton>
+                <SearchIcon />
+              </IconButton>
+            </Tooltip>
+          )}
+          {download && (
+            <Tooltip title="Download CSV">
+              <IconButton onClick={onDownload}>
+                <DownloadIcon />
+              </IconButton>
+            </Tooltip>
+          )}
+          {filter && (
+            <Tooltip title="Filter list">
+              <IconButton>
+                <FilterListIcon />
+              </IconButton>
+            </Tooltip>
+          )}
+          {print && (
+            <Tooltip title="Print">
+              <IconButton>
+                <PrintIcon />
+              </IconButton>
+            </Tooltip>
+          )}
         </Box>
       )}
     </Toolbar>
