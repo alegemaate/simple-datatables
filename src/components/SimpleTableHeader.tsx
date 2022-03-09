@@ -11,6 +11,7 @@ import { Order } from "../utils/sort";
 import { SimpleTableColumn } from "types/Column";
 import { DataKeys } from "types/DataKeys";
 import { RowId } from "types/RowId";
+import { SelectableRowsMode } from "types/Options";
 
 interface SimpleTableHeaderProps<TData> {
   numSelected: number;
@@ -23,6 +24,7 @@ interface SimpleTableHeaderProps<TData> {
   orderBy?: DataKeys<RowId & TData> | null;
   rowCount: number;
   columns: SimpleTableColumn<TData>[];
+  selectableRows?: SelectableRowsMode;
 }
 
 export function SimpleTableHeader<TData>({
@@ -33,6 +35,7 @@ export function SimpleTableHeader<TData>({
   rowCount,
   onRequestSort,
   columns,
+  selectableRows,
 }: React.PropsWithChildren<SimpleTableHeaderProps<TData>>) {
   const createSortHandler =
     (property: DataKeys<TData>) => (event: React.MouseEvent<unknown>) => {
@@ -42,17 +45,21 @@ export function SimpleTableHeader<TData>({
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
-          <Checkbox
-            color="primary"
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{
-              "aria-label": "select all desserts",
-            }}
-          />
-        </TableCell>
+        {selectableRows !== "none" && (
+          <TableCell padding="checkbox">
+            {selectableRows !== "single" && (
+              <Checkbox
+                color="primary"
+                indeterminate={numSelected > 0 && numSelected < rowCount}
+                checked={rowCount > 0 && numSelected === rowCount}
+                onChange={onSelectAllClick}
+                inputProps={{
+                  "aria-label": "select all desserts",
+                }}
+              />
+            )}
+          </TableCell>
+        )}
         {columns.map((column) => (
           <TableCell
             key={column.name}

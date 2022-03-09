@@ -61,20 +61,24 @@ function SimpleTable<TData>({
   };
 
   const handleClick = (id: number) => {
-    const selectedIndex = selected.indexOf(id);
     let newSelected: readonly number[] = [];
+    const selectedIndex = selected.indexOf(id);
+    const mode = options?.selectableRows ?? "multiple";
 
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
-      );
+    if (mode === "none") {
+      newSelected = [];
+    } else if (mode === "single") {
+      if (selectedIndex === -1) {
+        newSelected = [id];
+      } else {
+        newSelected = [];
+      }
+    } else if (mode === "multiple") {
+      if (selectedIndex === -1) {
+        newSelected = [...selected, id];
+      } else {
+        newSelected = selected.filter((elem) => elem !== id);
+      }
     }
 
     setSelected(newSelected);
@@ -114,11 +118,12 @@ function SimpleTable<TData>({
               onRequestSort={handleRequestSort}
               rowCount={sortedData.length}
               columns={columns}
+              selectableRows={options?.selectableRows}
             />
             <TableBody>
               {sortedData.map((row, index) => {
                 const isItemSelected = isSelected(row.__simple_id);
-                const labelId = `clean-table-checkbox-${index}`;
+                const labelId = `simple-table-checkbox-${index}`;
 
                 return (
                   <SimpleTableRow
@@ -128,6 +133,9 @@ function SimpleTable<TData>({
                     labelId={labelId}
                     onClick={handleClick}
                     columns={columns}
+                    hover={options?.rowHover}
+                    selectableRows={options?.selectableRows}
+                    selectableRowsOnClick={options?.selectableRowsOnClick}
                   />
                 );
               })}

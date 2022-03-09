@@ -8,8 +8,9 @@ const options: SimpleTableOptions = {
   download: false,
   search: false,
   sort: false,
-  selectableRows: "none",
+  selectableRows: "single",
   rowHover: false,
+  selectableRowsOnClick: false,
 };
 
 export const Basic: React.FC = () => (

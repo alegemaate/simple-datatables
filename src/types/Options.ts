@@ -1,11 +1,11 @@
 import { RowsPerPageOption } from "components/SimpleTablePagination";
 import { Order } from "utils/sort";
 
-type ResponsiveMode = "simple" | "standard" | "vertical";
+export type ResponsiveMode = "simple" | "standard" | "vertical";
 
-type SelectableRowsMode = "multiple" | "none" | "single";
+export type SelectableRowsMode = "multiple" | "none" | "single";
 
-type ToolbarPositioning = "above" | "none" | "replace";
+export type ToolbarPositioning = "above" | "none" | "replace";
 
 export interface SimpleTableOptions {
   // Dense mode
@@ -27,7 +27,7 @@ export interface SimpleTableOptions {
   print?: boolean;
   // Responsive mode (TODO)
   responsive?: ResponsiveMode;
-  // Show hover effect on rows (TODO)
+  // Show hover effect on rows
   rowHover?: boolean;
   // Initial rows per page
   rowsPerPage?: number;
@@ -43,9 +43,9 @@ export interface SimpleTableOptions {
   searchAlwaysOpen?: boolean;
   // Initial search text (TODO)
   searchText?: string;
-  // Configure selectable rows mode (TODO)
+  // Configure selectable rows mode
   selectableRows?: SelectableRowsMode;
-  // Allow clicking rows to select  (TODO)
+  // Allow clicking rows to select
   selectableRowsOnClick?: boolean;
   // Toolbar placement (TODO)
   selectToolbarPlacement?: ToolbarPositioning;

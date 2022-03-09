@@ -5,6 +5,7 @@ import TableRow from "@mui/material/TableRow";
 import Checkbox from "@mui/material/Checkbox";
 import { RowId } from "../types/RowId";
 import { SimpleTableColumn } from "types/Column";
+import { SelectableRowsMode } from "types/Options";
 
 interface SimpleTableRowProps<TData extends RowId> {
   onClick: (id: number) => void;
@@ -12,6 +13,9 @@ interface SimpleTableRowProps<TData extends RowId> {
   labelId: string;
   row: TData;
   columns: SimpleTableColumn<TData>[];
+  hover?: boolean;
+  selectableRows?: SelectableRowsMode;
+  selectableRowsOnClick?: boolean;
 }
 
 export const SimpleTableRow = <TData extends RowId>({
@@ -20,25 +24,39 @@ export const SimpleTableRow = <TData extends RowId>({
   labelId,
   row,
   columns,
+  hover,
+  selectableRows,
+  selectableRowsOnClick,
 }: React.PropsWithChildren<SimpleTableRowProps<TData>>) => (
   <TableRow
-    hover
-    onClick={() => onClick(row.__simple_id)}
+    hover={hover ?? true}
+    onClick={() => {
+      if (selectableRows === "none" || selectableRowsOnClick === false) {
+        return;
+      }
+      onClick(row.__simple_id);
+    }}
     role="checkbox"
     aria-checked={selected}
     tabIndex={-1}
     key={row.__simple_id}
     selected={selected}
   >
-    <TableCell padding="checkbox">
-      <Checkbox
-        color="primary"
-        checked={selected}
-        inputProps={{
-          "aria-labelledby": labelId,
-        }}
-      />
-    </TableCell>
+    {selectableRows !== "none" && (
+      <TableCell padding="checkbox">
+        <Checkbox
+          color="primary"
+          checked={selected}
+          inputProps={{
+            "aria-labelledby": labelId,
+          }}
+          onClick={(e) => {
+            e.stopPropagation();
+            onClick(row.__simple_id);
+          }}
+        />
+      </TableCell>
+    )}
     {columns.map((column) => (
       <TableCell key={column.name}>{row[column.name]}</TableCell>
     ))}
