@@ -4,8 +4,16 @@ import TablePagination from "@mui/material/TablePagination";
 import { SimpleTablePaginationActions } from "./SimpleTablePaginationActions";
 import { UsePaginationProps } from "hooks/usePagination";
 
+export type RowsPerPageOption =
+  | number
+  | {
+      label: string;
+      value: number;
+    };
+
 interface SimpleTablePaginationProps extends UsePaginationProps {
   numRows: number;
+  rowsPerPageOptions?: RowsPerPageOption[];
 }
 
 export const SimpleTablePagination: React.FC<SimpleTablePaginationProps> = ({
@@ -14,18 +22,18 @@ export const SimpleTablePagination: React.FC<SimpleTablePaginationProps> = ({
   page,
   handleChangePage,
   handleChangeRowsPerPage,
+  rowsPerPageOptions,
 }) => {
-  console.log({
-    numRows,
-    rowsPerPage,
-    page,
-    handleChangePage,
-    handleChangeRowsPerPage,
-  });
+  const options = React.useMemo(() => {
+    if (rowsPerPageOptions) {
+      return rowsPerPageOptions;
+    }
+    return [5, 10, 25, { label: "All", value: -1 }];
+  }, [rowsPerPageOptions]);
 
   return (
     <TablePagination
-      rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+      rowsPerPageOptions={options}
       colSpan={3}
       count={numRows}
       rowsPerPage={rowsPerPage}

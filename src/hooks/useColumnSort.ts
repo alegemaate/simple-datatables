@@ -6,15 +6,22 @@ export interface UseColumnSortProps<TData> {
   data: TData[];
   page: number;
   rowsPerPage: number;
+  sortOrder?: {
+    column: DataKeys<TData>;
+    order: Order;
+  };
 }
 
 export const useColumnSort = <TData>({
   page,
   data,
   rowsPerPage,
+  sortOrder,
 }: UseColumnSortProps<TData>) => {
-  const [order, setOrder] = React.useState<Order>("asc");
-  const [orderBy, setOrderBy] = React.useState<DataKeys<TData> | null>();
+  const [order, setOrder] = React.useState<Order>(sortOrder?.order ?? "asc");
+  const [orderBy, setOrderBy] = React.useState<DataKeys<TData> | null>(
+    sortOrder?.column ?? null,
+  );
 
   const handleRequestSort = (
     _event: React.MouseEvent<unknown>,

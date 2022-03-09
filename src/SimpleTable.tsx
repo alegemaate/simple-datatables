@@ -18,16 +18,13 @@ import { SimpleTableRow } from "./components/SimpleTableRow";
 import { useDataId } from "./hooks/useDataId";
 import { SimpleTableColumn } from "types/Column";
 import { downloadCsv } from "utils/download-csv";
+import { SimpleTableOptions } from "types/Options";
 
 interface SimpleTableProps<TData> {
   title?: string | null;
   data: TData[];
   columns: SimpleTableColumn<TData>[];
-  options?: {
-    dense?: boolean;
-    rowsPerPage?: number;
-    displayEmptyRows?: boolean;
-  };
+  options?: SimpleTableOptions;
 }
 
 function SimpleTable<TData>({
@@ -39,7 +36,7 @@ function SimpleTable<TData>({
   const [selected, setSelected] = React.useState<readonly number[]>([]);
 
   const { handleChangePage, handleChangeRowsPerPage, page, rowsPerPage } =
-    usePagination(options?.rowsPerPage ?? 5);
+    usePagination(options?.page, options?.rowsPerPage);
 
   const idData = useDataId(data);
 
@@ -98,6 +95,10 @@ function SimpleTable<TData>({
           numSelected={selected.length}
           title={title}
           onDownload={handleDownload}
+          download={options?.download ?? true}
+          filter={options?.filter ?? true}
+          search={options?.search ?? true}
+          print={options?.print ?? true}
         />
         <TableContainer>
           <Table
@@ -148,6 +149,7 @@ function SimpleTable<TData>({
           handleChangeRowsPerPage={handleChangeRowsPerPage}
           page={page}
           rowsPerPage={rowsPerPage}
+          rowsPerPageOptions={options?.rowsPerPageOptions}
         />
       </Paper>
     </Box>
